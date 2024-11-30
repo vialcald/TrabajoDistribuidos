@@ -2,25 +2,21 @@ package gestorPartidas;
 
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.*;
 
 public class Servidor {
 	public static void main(String[] args) {
-		try(ServerSocket server = new ServerSocket(80000);){
+		ExecutorService pool = Executors.newCachedThreadPool();
+		try(ServerSocket s = new ServerSocket(8000)){
 			while(true) {
-				try(Socket cliente = server.accept();
-						OutputStream o = cliente.getOutputStream();
-						OutputStreamWriter ow = new OutputStreamWriter(o, "UTF-8");
-						InputStream i = cliente.getInputStream();
-						InputStreamReader ir = new InputStreamReader(i, "UTF-8");
-						BufferedReader br = new BufferedReader(ir);){
+				try {
+					Socket c1 = s.accept();
+					Socket c2 = s.accept();
 					
-					
-					
-				} catch (UnknownHostException e) {
+					pool.execute(new Partida(c1,c2));
+				}catch(IOException e) {
 					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				}	
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
