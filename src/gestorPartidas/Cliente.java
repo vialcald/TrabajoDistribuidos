@@ -35,6 +35,7 @@ public class Cliente {
 					BufferedReader br = new BufferedReader(isr);){
 				
 				osw.write(nombre);
+				osw.flush();
 				String oponente = br.readLine();
 				System.out.println("Oponente asignado: " + oponente);
 				
