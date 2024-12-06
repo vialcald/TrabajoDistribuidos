@@ -1,13 +1,11 @@
-package conectaCuatro;
-
-import java.util.*;
+package model;
 
 public class Tablero {
 	char[][] casillas = new char[6][7];
 	private int ronda = 0;
 	private boolean finalizado = false;
 	private int ganador = -1;
-	
+
 	public Tablero() {
 		for (int fila = 0; fila < casillas.length; fila++){
 			for (int columna = 0; columna < casillas[0].length; columna++){
@@ -27,7 +25,7 @@ public class Tablero {
 	public int getEspectador() {
 		return (ronda + 1) % 2;
 	}
-	
+
 	public char getSimboloJugador() {
 		if(getJugador() % 2 == 0) {
 			return 'O';
@@ -35,19 +33,17 @@ public class Tablero {
 			return 'X';
 		}
 	}
-	
+
 	public void ponerFicha(int columna) {
-		if(validarEntrada(columna)) {
-			char ficha = getSimboloJugador();
-			
-			for (int fila = casillas.length - 1; fila >= 0; fila--){
-				if(casillas[fila][columna] == ' '){
-					casillas[fila][columna] = ficha;
-					break;
-				}
+		char ficha = getSimboloJugador();
+
+		for (int fila = casillas.length - 1; fila >= 0; fila--){
+			if(casillas[fila][columna] == ' '){
+				casillas[fila][columna] = ficha;
+				break;
 			}
 		}
-		
+
 		if(comprobarGanador()) {
 			finalizado = true;
 			ganador = getJugador();
@@ -57,7 +53,7 @@ public class Tablero {
 			ronda++;
 		}
 	}
-	
+
 	private  boolean comprobarGanador() {
 		char ficha = getSimboloJugador();
 
@@ -105,25 +101,25 @@ public class Tablero {
 				}
 			}
 		}
-		
+
 		return false;
 	}
 
 	public int getGanador() {
 		return ganador;
 	}
-	
+
 	public int getPerdedor() {
 		if (ganador != -1) {
 			return (ganador + 1) %  2;
 		} else {
 			return -1;
 		}
-		
+
 	}
-	
+
 	public boolean validarEntrada(int columna) {
-		if (columna < 0 || columna > casillas[0].length){
+		if (columna < 0 || columna > casillas[0].length - 1){
 			return false;
 		} else if (casillas[0][columna] != ' '){
 			return false;
@@ -131,11 +127,11 @@ public class Tablero {
 			return true;
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder salida = new StringBuilder();
-		
+
 		salida.append(" 0 1 2 3 4 5 6\r\n");
 		salida.append("---------------\r\n");
 		for (int fila = 0; fila < casillas.length; fila++) {
@@ -148,7 +144,7 @@ public class Tablero {
 			salida.append("---------------\r\n");
 		}
 		salida.append(" 0 1 2 3 4 5 6\r\n");
-		
+
 		return salida.toString();
 	}
 }
