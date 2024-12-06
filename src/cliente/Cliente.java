@@ -12,7 +12,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-import model.Tablero;
+import modelo.Tablero;
 
 public class Cliente {
 	public static void main(String[] args) {

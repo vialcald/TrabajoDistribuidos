@@ -10,7 +10,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-import model.Tablero;
+import modelo.Tablero;
 
 public class Partida extends Thread {
 	private Tablero tablero = new Tablero();
